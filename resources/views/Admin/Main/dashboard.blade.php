@@ -1,17 +1,29 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
-    </x-slot>
+<!doctype html>
+<html lang="en">
+<!DOCTYPE html>
+<head>
+    <title>Pusher Test</title>
+    <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
+    <script>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900 dark:text-gray-100">
-                    You Are a Admin User
-                </div>
-            </div>
-        </div>
-    </div>
-</x-app-layout>
+        // Enable pusher logging - don't include this in production
+        Pusher.logToConsole = true;
+
+        var pusher = new Pusher('957c42a413b9e02557cb', {
+            cluster: 'ap2'
+        });
+
+        var channel = pusher.subscribe('my-channel');
+        channel.bind('my-event', function(data) {
+            alert(JSON.stringify(data));
+        });
+    </script>
+</head>
+<body>
+<h1>Pusher Test</h1>
+<p>
+    Try publishing an event to channel <code>my-channel</code>
+    with event name <code>my-event</code>.
+</p>
+</body>
+</html>
